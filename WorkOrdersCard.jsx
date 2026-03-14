@@ -1,40 +1,24 @@
 import React from 'react';
 
 function WorkOrdersCard() {
-    const workOrders = {
-        open: [
-            { id: '#231', title: 'Printer Error', dept: 'Finance' },
-            { id: '#232', title: 'Internet Lambat', dept: 'HR' }
-        ],
-        inProgress: [
-            { id: '#220', title: 'Server Upgrade' },
-            { id: '#225', title: 'Update Inventory App' }
-        ]
-    };
-
     return (
         <div className="card">
             <h2>🔧 WORK ORDERS</h2>
-            <div className="card-content">
-                <div className="work-orders-section">
-                    <h3>OPEN</h3>
-                    {workOrders.open.map((wo, index) => (
-                        <div key={index} className="work-order-item open">
-                            <span>{wo.id} {wo.title} - {wo.dept}</span>
-                            <span className="status-dot">🟢</span>
-                        </div>
-                    ))}
-                </div>
-                
-                <div className="work-orders-section">
-                    <h3>IN PROGRESS</h3>
-                    {workOrders.inProgress.map((wo, index) => (
-                        <div key={index} className="work-order-item progress">
-                            <span>{wo.id} {wo.title}</span>
-                            <span className="check-icon">✅</span>
-                        </div>
-                    ))}
-                </div>
+            
+            <div className="work-section">
+                <h3>OPEN</h3>
+                <ul className="work-list">
+                    <li><span>#231 Printer Error - Finance</span> <span className="open-dot">🟢</span></li>
+                    <li><span>#232 Internet Lambat - HR</span> <span className="open-dot">🟢</span></li>
+                </ul>
+            </div>
+
+            <div className="work-section">
+                <h3>IN PROGRESS</h3>
+                <ul className="work-list">
+                    <li><span>#220 Server Upgrade</span> <span className="progress-check">✅</span></li>
+                    <li><span>#225 Update Inventory App</span> <span className="progress-check">✅</span></li>
+                </ul>
             </div>
         </div>
     );

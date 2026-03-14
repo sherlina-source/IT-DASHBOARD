@@ -1,21 +1,18 @@
 import React from 'react';
 
 function BirthdayCard() {
-    const birthdays = [
-        { name: 'Rina Putri', dept: 'Finance Dept', icon: '🎂' },
-        { name: 'Andi Setiawan', dept: 'HR Dept', icon: '🎉' }
-    ];
-
     return (
-        <div className="card">
+        <div className="card birthday-card">
             <h2>🎂 BIRTHDAY TODAY</h2>
-            <div className="card-content">
-                {birthdays.map((birthday, index) => (
-                    <div key={index} className="birthday-item">
-                        <div className="birthday-name">{birthday.icon} {birthday.name}</div>
-                        <div className="birthday-dept">{birthday.dept}</div>
-                    </div>
-                ))}
+            
+            <div className="birthday-item">
+                <div className="birthday-name">Rina Putri</div>
+                <div className="birthday-dept">Finance Dept</div>
+            </div>
+            
+            <div className="birthday-item">
+                <div className="birthday-name">Andi Setiawan</div>
+                <div className="birthday-dept">HR Dept</div>
             </div>
         </div>
     );

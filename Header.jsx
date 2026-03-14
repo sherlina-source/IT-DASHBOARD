@@ -22,8 +22,8 @@ function Header() {
 
     return (
         <div className="header">
-            <h1>🚀 IT OPERATIONS DASHBOARD</h1>
-            <div className="datetime">
+            <h1>IT OPERATIONS DASHBOARD</h1>
+            <div className="date-time">
                 {dayName}, {date} {month} {year} | {time} WIB
             </div>
         </div>
