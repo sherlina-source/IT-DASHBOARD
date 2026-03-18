@@ -4,7 +4,7 @@ function StatusFooter() {
     return (
         <div className="status-footer">
             <div className="footer-item">
-                <span className="footer-label">No birthday today</span>
+                <span className="footer-label">🎉No Birthday Today🎉</span>
             </div>
             <div className="footer-item">
                 <span className="footer-label">OPERATIONS ONLINE</span>

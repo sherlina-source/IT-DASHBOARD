@@ -4,7 +4,7 @@ import React from 'react';
 function AnnouncementCard2() {
     return (
         <div className="card">
-            <h2>📢 ANNOUNCEMENTS</h2>
+            <h2>📣 ANNOUNCEMENTS</h2>
             <div className="announcement-content">
                 <div className="announcement-item">
                     <h4>Server Maintenance</h4>
