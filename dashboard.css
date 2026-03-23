@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -32,7 +33,7 @@ body {
 
 /* ===== HEADER NAVY GELAP ===== */
 .header {
-    background: #1a2639;  /* Navy gelap sama dengan card */
+    background: #1a2639;
     border-radius: 12px;
     padding: 12px 16px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
@@ -41,7 +42,7 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    border: 2px solid #4a5568;  /* Border abu-abu gelap */
+    border: 2px solid #4a5568;
     flex-shrink: 0;
     width: 100%;
 }
@@ -49,7 +50,7 @@ body {
 .header h1 {
     font-size: 1.3rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #a0c0e0, #7fc9ff);  /* Biru muda pastel */
+    background: linear-gradient(135deg, #a0c0e0, #7fc9ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 4px;
@@ -60,8 +61,8 @@ body {
 
 .date-time {
     font-size: 0.85rem;
-    color: #e0e0e0 !important;  /* Abu-abu muda */
-    background: #2d3a5a;  /* Navy lebih terang */
+    color: #e0e0e0 !important;
+    background: #2d3a5a;
     padding: 5px 14px;
     border-radius: 30px;
     border: 1px solid #4a5568;
@@ -108,11 +109,11 @@ body {
 
 /* ===== CARD STYLES - BACKGROUND NAVY ===== */
 .card {
-    background: #1a2639;  /* Navy gelap */
+    background: #1a2639;
     border-radius: 12px;
     padding: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    border: 2px solid #4a5568;  /* Abu-abu gelap */
+    border: 2px solid #4a5568;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -174,7 +175,7 @@ body {
 .calendar-card h2 {
     font-size: 0.85rem;
     font-weight: 600;
-    color: #ff6b6b !important;  /* Merah pastel */
+    color: #ff6b6b !important;
     margin-bottom: 6px;
     padding-bottom: 3px;
     border-bottom: 3px solid #ff8787;
@@ -184,7 +185,7 @@ body {
 .middle-section .card:nth-child(1) h2 {
     font-size: 0.85rem;
     font-weight: 600;
-    color: #ffa94d !important;  /* Jingga pastel */
+    color: #ffa94d !important;
     margin-bottom: 6px;
     padding-bottom: 3px;
     border-bottom: 3px solid #ffb86b;
@@ -194,7 +195,7 @@ body {
 .middle-section .card:nth-child(2) h2 {
     font-size: 0.85rem;
     font-weight: 600;
-    color: #ffd966 !important;  /* Kuning pastel */
+    color: #ffd966 !important;
     margin-bottom: 6px;
     padding-bottom: 3px;
     border-bottom: 3px solid #ffe083;
@@ -204,7 +205,7 @@ body {
 .middle-section .card:nth-child(3) h2 {
     font-size: 0.85rem;
     font-weight: 600;
-    color: #6bcf7f !important;  /* Hijau pastel */
+    color: #6bcf7f !important;
     margin-bottom: 6px;
     padding-bottom: 3px;
     border-bottom: 3px solid #8ddb9d;
@@ -214,7 +215,7 @@ body {
 .right-section .card:nth-child(1) h2 {
     font-size: 0.85rem;
     font-weight: 600;
-    color: #6ab0fe !important;  /* Biru pastel */
+    color: #6ab0fe !important;
     margin-bottom: 6px;
     padding-bottom: 3px;
     border-bottom: 3px solid #8ac0fe;
@@ -224,7 +225,7 @@ body {
 .right-section .card:nth-child(2) h2 {
     font-size: 0.85rem;
     font-weight: 600;
-    color: #b47aea !important;  /* Ungu pastel */
+    color: #b47aea !important;
     margin-bottom: 6px;
     padding-bottom: 3px;
     border-bottom: 3px solid #c79cf0;
@@ -234,7 +235,7 @@ body {
 .right-section .card:nth-child(3) h2 {
     font-size: 0.85rem;
     font-weight: 600;
-    color: #ff8a8a !important;  /* Merah muda pastel */
+    color: #ff8a8a !important;
     margin-bottom: 6px;
     padding-bottom: 3px;
     border-bottom: 3px solid #ffa8a8;
@@ -244,47 +245,11 @@ body {
 .birthday-card h2 {
     font-size: 0.85rem;
     font-weight: 600;
-    color: #7fc9ff !important;  /* Biru muda pastel */
+    color: #7fc9ff !important;
     margin-bottom: 6px;
     padding-bottom: 3px;
     border-bottom: 3px solid #9ed4ff;
     flex-shrink: 0;
-}
-
-/* Status Footer - navy lebih terang */
-.status-footer {
-    background: #2d3a5a;  /* Navy lebih terang */
-    border-radius: 12px;
-    padding: 8px 10px;
-    border: 2px solid #4a5568;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    flex-shrink: 0;
-    margin-top: auto;
-}
-
-.status-footer .footer-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.7rem;
-    color: white !important;
-}
-
-.footer-label {
-    color: #e0e0e0 !important;
-    font-weight: 500;
-}
-
-.footer-status {
-    color: #2f6b4a !important;
-    font-weight: 600;
-    background: #e3f5e8;
-    padding: 2px 6px;
-    border-radius: 8px;
-    border: 1px solid #4ba265;
-    font-size: 0.65rem;
 }
 
 /* ===== AKHIR WARNA HEADER ===== */
@@ -366,7 +331,7 @@ body {
     color: #b0c4de !important;
 }
 
-/* No birthday today */
+/* No birthday today - old style (diganti dengan yang baru) */
 .no-birthday {
     font-style: italic;
     color: #b0c4de !important;
@@ -376,6 +341,125 @@ body {
     border-radius: 5px;
     margin-top: auto;
 }
+
+/* ===== STYLE UNTUK NoBirthdayCard ===== */
+/* ===== STYLE UNTUK NoBirthdayCard ===== */
+.nobirthday-card {
+    background: #1a2639;
+    border-radius: 6px;
+    padding: 0;  /* Padding dihapus */
+    border: 1px solid #4a5568;
+    display: flex;
+    align-items: center;  /* Tengah vertikal */
+    justify-content: center;  /* Tengah horizontal */
+    flex-shrink: 0;
+    margin-top: auto;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    height: 32px;  /* Tinggi tetap */
+    min-height: 32px;
+}
+
+.nobirthday-card .nobirthday-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;  /* Full height */
+}
+
+.nobirthday-card .footer-label {
+    color: #ffb5b5 !important;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    font-size: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: #1e293b;
+    padding: 2px 10px;
+    border-radius: 20px;
+    border: 1px solid #ffb5b5;
+    line-height: 1;
+    height: 24px;  /* Tinggi tetap */
+}
+
+.nobirthday-card .footer-label::before {
+   
+    font-size: 0.6rem;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+}
+
+.nobirthday-card .footer-label::after {
+    
+    font-size: 0.6rem;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+}
+/* ===== AKHIR STYLE NoBirthdayCard ===== */
+
+/* ===== STYLE UNTUK StatusFooter (OPERATIONS ONLINE) ===== */
+.status-footer {
+    background: #1a2639;
+    border-radius: 6px;
+    padding: 0;  /* Padding dihapus */
+    border: 1px solid #2e3b4e;
+    display: flex;
+    align-items: center;  /* Tengah vertikal */
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: auto;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    height: 36px;  /* Tinggi tetap */
+    min-height: 36px;
+}
+
+.status-footer .footer-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.6rem;
+    color: white;
+    width: 100%;
+    height: 100%;  /* Full height */
+    padding: 0 8px;  /* Padding horizontal saja */
+}
+
+.status-footer .footer-label {
+    color: #ffffff !important;
+    font-weight: 500;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    background: #1e2a3a;
+    padding: 3px 12px;
+    border-radius: 12px;
+    border: 1px solid #4b6584;
+    line-height: 1;
+    height: 24px;  /* Tinggi tetap */
+    display: flex;
+    align-items: center;
+}
+
+.status-footer .footer-status {
+    color: #ffffff !important;
+    font-weight: 500;
+    background: #0f6623;
+    padding: 3px 12px;
+    border-radius: 15px;
+    font-size: 0.55rem;
+    border: 1px solid #2ecc71;
+    line-height: 1;
+    height: 24px;  /* Tinggi tetap */
+    display: flex;
+    align-items: center;
+}
+/* ===== AKHIR STYLE StatusFooter ===== */
+
+/* ===== AKHIR STYLE StatusFooter ===== */
 
 /* Work Orders Card */
 .work-section {
@@ -547,7 +631,7 @@ body {
     .right-section {
         flex-direction: column;
     }
-    
+      
     .birthday-wrapper {
         width: 100%;
     }

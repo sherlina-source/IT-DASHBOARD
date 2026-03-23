@@ -1,3 +1,4 @@
+// src/components/Header.jsx
 import React, { useState, useEffect } from 'react';
 
 function Header() {
@@ -6,7 +7,7 @@ function Header() {
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentTime(new Date());
-        }, 1000);
+        }, 1000); // Update setiap detik
 
         return () => clearInterval(timer);
     }, []);
@@ -18,7 +19,13 @@ function Header() {
     const date = currentTime.getDate();
     const month = months[currentTime.getMonth()];
     const year = currentTime.getFullYear();
-    const time = currentTime.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+    
+    // Format waktu dengan detik
+    const time = currentTime.toLocaleTimeString('id-ID', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        second: '2-digit'  // Menambahkan detik
+    });
 
     return (
         <div className="header">

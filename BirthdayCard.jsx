@@ -3,7 +3,7 @@ import React from 'react';
 function BirthdayCard() {
     return (
         <div className="card birthday-card">
-            <h2>🎂 BIRTHDAY TODAY</h2>
+            <h2>🎂  BIRTHDAY TODAY</h2>
             
             <div className="birthday-item">
                 <div className="birthday-name">Rina Putri</div>

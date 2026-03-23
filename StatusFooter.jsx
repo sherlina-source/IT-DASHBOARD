@@ -1,16 +1,15 @@
+///////StatusFooter///////
+
 import React from 'react';
 
 function StatusFooter() {
     return (
-        <div className="status-footer">
-            <div className="footer-item">
-                <span className="footer-label">🎉No Birthday Today🎉</span>
-            </div>
+        <div className="status-footer">  {/* INI YANG KURANG! */}
             <div className="footer-item">
                 <span className="footer-label">OPERATIONS ONLINE</span>
                 <span className="footer-status">🔵 ACTIVE</span>
             </div>
-        </div>
+        </div>  /* INI YANG KURANG! */
     );
 }
 
