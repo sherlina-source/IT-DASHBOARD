@@ -8,7 +8,6 @@ function AnnouncementCard() {
             <div className="announcement-content">
                 <div className="announcement-item">
                     <h4>Server Maintenance</h4>
-                    {/* Tanpa paragraph */}
                 </div>
                 <div className="announcement-item">
                     <h4>Inventory Update</h4>

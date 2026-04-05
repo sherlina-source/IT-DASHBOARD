@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import Header from '../components/Header';
 import CalendarCard from '../components/CalendarCard';
@@ -9,39 +7,44 @@ import DailyReviewCard from '../components/DailyReviewCard';
 import TicketStatusCard from '../components/TicketStatusCard';
 import AnnouncementCard from '../components/AnnouncementCard';
 import InfrastructureCard from '../components/InfrastructureCard';
-import NoBirthdayCard from '../components/NoBirthdayCard';
-import StatusFooter from '../components/StatusFooter'; // Komponen baru untuk footer
+import StatusFooter from '../components/StatusFooter';
 import '../styles/dashboard.css';
 
 function Dashboard() {
+
     return (
         <div className="dashboard">
             <Header />
             
             <div className="dashboard-grid">
-                {/* LEFT SECTION - 2 Cards + Footer */}
+
+                {/* ===== LEFT SECTION ===== */}
                 <div className="left-section">
                     <CalendarCard />
+
                     <div className="birthday-wrapper">
+                        
+                        {/* 🔥 BIRTHDAY (SUDAH ADA FILTER DI DALAM) */}
                         <BirthdayCard />
-                        <NoBirthdayCard />
-                        <StatusFooter /> {/* Menambahkan footer di bawah birthday */}
+
+                        {/* 🔥 FOOTER */}
+                        <StatusFooter />
                     </div>
                 </div>
-                
-                {/* MIDDLE SECTION - 3 Cards */}
+
+                {/* ===== MIDDLE SECTION ===== */}
                 <div className="middle-section">
                     <WorkOrdersCard />
                     <DailyReviewCard />
-                    
                 </div>
-                
-                {/* RIGHT SECTION - 3 Cards */}
+
+                {/* ===== RIGHT SECTION ===== */}
                 <div className="right-section">
                     <TicketStatusCard />
                     <InfrastructureCard />
                     <AnnouncementCard />
                 </div>
+
             </div>
         </div>
     );

@@ -1,4 +1,3 @@
-// src/components/CalendarCard.jsx
 import React, { useState, useEffect } from 'react';
 
 function CalendarCard() {
@@ -8,26 +7,23 @@ function CalendarCard() {
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState(null);
   const [showCustomDate, setShowCustomDate] = useState(false);
-  const [refreshCount, setRefreshCount] = useState(0); // Untuk tracking refresh
+  const [refreshCount, setRefreshCount] = useState(0);
 
   // API Configuration
   const API_KEY = 'AIzaSyAO3ojR5QElW7on3lefOPhWwB0B1dE9cr4';
   const CALENDAR_ID = 'c_06e2e787cefb7c612341319e806f163a36e131fcf395949eceb69021abea7b05@group.calendar.google.com';
   const BASE_URL = 'https://www.googleapis.com/calendar/v3';
 
-  // Format tanggal ke YYYY-MM-DD
   const formatDate = (date) => {
     return date.toISOString().split('T')[0];
   };
 
-  // Format tanggal untuk display
   const formatDisplayDate = (date) => {
     const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
     const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     return `${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
   };
 
-  // Fetch events dari Google Calendar dengan error handling yang lebih baik
   const fetchCalendarEvents = async (timeMin, timeMax, retryCount = 0) => {
     try {
       const params = new URLSearchParams({
@@ -43,7 +39,6 @@ function CalendarCard() {
       const response = await fetch(url);
       
       if (response.status === 429) {
-        // Rate limit exceeded, tunggu dan coba lagi
         if (retryCount < 3) {
           const waitTime = 2000 * (retryCount + 1);
           console.log(`Rate limit, retrying in ${waitTime}ms...`);
@@ -61,11 +56,10 @@ function CalendarCard() {
       return data.items || [];
     } catch (error) {
       console.error('Error fetching calendar events:', error);
-      return []; // Return empty array instead of throwing error
+      return [];
     }
   };
 
-  // Ambil event hari ini
   const fetchTodayEvents = async () => {
     const now = new Date();
     const startOfDay = new Date(now);
@@ -75,7 +69,6 @@ function CalendarCard() {
     return fetchCalendarEvents(startOfDay, endOfDay);
   };
 
-  // Ambil event besok
   const fetchTomorrowEvents = async () => {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -86,7 +79,6 @@ function CalendarCard() {
     return fetchCalendarEvents(startOfTomorrow, endOfTomorrow);
   };
 
-  // Ambil event di tanggal tertentu
   const fetchEventsByDate = async (date) => {
     const startOfDay = new Date(date);
     startOfDay.setHours(0, 0, 0, 0);
@@ -95,7 +87,6 @@ function CalendarCard() {
     return fetchCalendarEvents(startOfDay, endOfDay);
   };
 
-  // Load semua data
   const loadAllEvents = async () => {
     try {
       const [today, tomorrow] = await Promise.all([
@@ -108,13 +99,11 @@ function CalendarCard() {
       setRefreshCount(prev => prev + 1);
     } catch (err) {
       console.error('Failed to load calendar events:', err);
-      // Jangan tampilkan error ke user, cukup log di console
     } finally {
       setLoading(false);
     }
   };
 
-  // Load event di tanggal custom
   const loadCustomDateEvents = async (date) => {
     if (!date) return;
     
@@ -124,27 +113,23 @@ function CalendarCard() {
       setRefreshCount(prev => prev + 1);
     } catch (err) {
       console.error('Failed to load custom date events:', err);
-      // Jangan tampilkan error ke user, cukup log di console
     } finally {
       setLoading(false);
     }
   };
 
-  // Handle perubahan tanggal
   const handleDateSelect = (date) => {
     setSelectedDate(date);
     loadCustomDateEvents(date);
     setShowCustomDate(true);
   };
 
-  // Reset ke tampilan default (hari ini & besok)
   const handleResetToDefault = () => {
     setShowCustomDate(false);
     setSelectedDate(null);
     loadAllEvents();
   };
 
-  // Format waktu event
   const formatEventTime = (event) => {
     const start = event.start?.dateTime;
     if (!start) return 'All day';
@@ -156,19 +141,18 @@ function CalendarCard() {
     });
   };
 
-  // Auto refresh dengan interval yang lebih aman (30 detik)
   useEffect(() => {
     if (showCustomDate) {
       if (selectedDate) {
         loadCustomDateEvents(selectedDate);
         const interval = setInterval(() => {
           loadCustomDateEvents(selectedDate);
-        }, 30000); // 30 detik untuk menghindari rate limit
+        }, 10000);
         return () => clearInterval(interval);
       }
     } else {
       loadAllEvents();
-      const interval = setInterval(loadAllEvents, 30000); // 30 detik
+      const interval = setInterval(loadAllEvents, 10000);
       return () => clearInterval(interval);
     }
   }, [showCustomDate, selectedDate]);
@@ -187,22 +171,31 @@ function CalendarCard() {
 
   return (
     <div className="card calendar-card">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', flexWrap: 'wrap', gap: '8px' }}>
-        <h2 style={{ margin: 0 }}>📅 CALENDAR</h2>
+      {/* Header dengan filter - TETAP DI ATAS GARIS */}
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        marginBottom: '8px', 
+        flexWrap: 'wrap', 
+        gap: '8px' 
+      }}>
+        <h2 style={{ margin: 0, flex: 1 }}>📅 CALENDAR</h2>
         
-        {/* Filter Tanggal */}
-        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+        {/* Filter Tanggal - DIPERKECIL */}
+        <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
           <input
             type="date"
             onChange={(e) => handleDateSelect(new Date(e.target.value))}
             style={{
-              padding: '4px 8px',
-              fontSize: '0.7rem',
+              padding: '3px 6px',
+              fontSize: '0.65rem',
               borderRadius: '6px',
               border: '1px solid #4a5568',
               background: '#2d3a5a',
               color: 'white',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              width: '115px'
             }}
           />
           
@@ -210,8 +203,8 @@ function CalendarCard() {
             <button
               onClick={handleResetToDefault}
               style={{
-                padding: '4px 12px',
-                fontSize: '0.7rem',
+                padding: '3px 8px',
+                fontSize: '0.65rem',
                 borderRadius: '6px',
                 border: '1px solid #4a5568',
                 cursor: 'pointer',
@@ -219,7 +212,7 @@ function CalendarCard() {
                 color: 'white'
               }}
             >
-              ✕ Reset
+              ✕
             </button>
           )}
         </div>
@@ -275,7 +268,7 @@ function CalendarCard() {
             paddingBottom: '4px',
             marginBottom: '8px'
           }}>
-            📅 {selectedDate && formatDisplayDate(selectedDate)}
+            {selectedDate && formatDisplayDate(selectedDate)}
           </h3>
           
           {loading ? (
