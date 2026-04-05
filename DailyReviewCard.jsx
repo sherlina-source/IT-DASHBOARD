@@ -6,11 +6,13 @@ function DailyReviewCard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [todayData, setTodayData] = useState([]);
-  const [lastReviewDate, setLastReviewDate] = useState(null);
   const [isLocked, setIsLocked] = useState(false);
+  const [audioReady, setAudioReady] = useState(false);
 
   const playedSoundRef = useRef(false);
+  const prevLockedRef = useRef(false);
   const intervalRef = useRef(null);
+  const audioRef = useRef(null);
 
   const targetNames = [
     "Agung Prasetyo",
@@ -28,17 +30,27 @@ function DailyReviewCard() {
     return new Date(date).toISOString().split('T')[0];
   };
 
-  // 🔓 UNLOCK AUDIO
+  // 🔊 INIT AUDIO
+  useEffect(() => {
+    audioRef.current = new Audio('/Sound/notification.wav');
+  }, []);
+
+  // 🔓 UNLOCK AUDIO (1x klik)
   useEffect(() => {
     const unlockAudio = () => {
-      const audio = new Audio('/Sound/notification.wav');
-      audio.volume = 0;
+      if (!audioRef.current) return;
 
-      audio.play().then(() => {
-        audio.pause();
-        audio.currentTime = 0;
-        audio.volume = 1;
-      }).catch(() => {});
+      audioRef.current.volume = 0;
+
+      audioRef.current.play()
+        .then(() => {
+          audioRef.current.pause();
+          audioRef.current.currentTime = 0;
+          audioRef.current.volume = 1;
+          setAudioReady(true);
+          console.log("🔓 Audio unlocked");
+        })
+        .catch(() => {});
     };
 
     document.addEventListener('click', unlockAudio, { once: true });
@@ -48,7 +60,7 @@ function DailyReviewCard() {
     };
   }, []);
 
-  // 🔥 CHECK LOCK TIME (11:00)
+  // 🔥 CHECK LOCK TIME 
   const checkLockTime = () => {
     const now = new Date();
     const hour = now.getHours();
@@ -56,16 +68,25 @@ function DailyReviewCard() {
 
     const locked = hour > 11 || (hour === 11 && minute >= 0);
     setIsLocked(locked);
-
-    if (locked && !playedSoundRef.current) {
-      const audio = new Audio('/Sound/notification.wav');
-      audio.volume = 1;
-      audio.currentTime = 0;
-
-      audio.play().catch(() => {});
-      playedSoundRef.current = true;
-    }
   };
+
+  // 🔊 SOUND HANYA SAAT MOMEN LOCK
+  useEffect(() => {
+    // hanya saat perubahan false → true
+    if (!prevLockedRef.current && isLocked) {
+      if (audioReady && audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play().catch(() => {});
+        playedSoundRef.current = true;
+
+        console.log("🔊 Bunyi tepat waktu (11:00)");
+      } else {
+        console.log("⏭️ Tidak bunyi (belum klik)");
+      }
+    }
+
+    prevLockedRef.current = isLocked;
+  }, [isLocked, audioReady]);
 
   // 🔄 FETCH DATA
   const fetchData = async () => {
@@ -100,7 +121,7 @@ function DailyReviewCard() {
     }
   };
 
-  // 🔄 PROCESS DATA (FIX: TIDAK ADA FALLBACK)
+  // 🔄 PROCESS DATA
   const processData = () => {
     if (!data.length) return;
 
@@ -108,7 +129,6 @@ function DailyReviewCard() {
     const todayEntries = data.filter(d => d.review_date === todayStr);
 
     setTodayData(todayEntries);
-    setLastReviewDate(todayStr);
   };
 
   // 🔄 INIT
@@ -135,6 +155,7 @@ function DailyReviewCard() {
   useEffect(() => {
     const reset = () => {
       playedSoundRef.current = false;
+      prevLockedRef.current = false;
     };
 
     const now = new Date();
@@ -194,6 +215,12 @@ function DailyReviewCard() {
         {isLocked && <span className="lock-badge">🔒</span>}
       </div>
 
+      {!audioReady && (
+        <div className="audio-warning">
+          🔊 Klik di mana saja untuk mengaktifkan notifikasi
+        </div>
+      )}
+
       <div className="daily-review-list">
         {orderedNames.map(name => {
           const filled = todayData.some(d => d.nama_karyawan === name);
@@ -208,9 +235,7 @@ function DailyReviewCard() {
 
       <div className="daily-review-footer">
         {isEmptyToday && (
-          <span className="no-data">
-            📭 Belum Ada yang Mengisi Hari Ini
-          </span>
+          <span>📭 Belum ada yang mengisi hari ini</span>
         )}
 
         <span>
