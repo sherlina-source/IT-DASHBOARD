@@ -2,18 +2,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 function DailyReviewCard() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [todayData, setTodayData] = useState([]);
-  const [isLocked, setIsLocked] = useState(false);
-  const [audioReady, setAudioReady] = useState(false);
 
-  const playedSoundRef = useRef(false);
-  const prevLockedRef = useRef(false);
-  const intervalRef = useRef(null);
-  const audioRef = useRef(null);
+  // ===== STATE UTAMA =====
+  const [data, setData] = useState([]);          
+  const [loading, setLoading] = useState(true);  
+  const [error, setError] = useState(null);      
+  const [todayData, setTodayData] = useState([]); 
+  const [isLocked, setIsLocked] = useState(false); 
+  const [audioReady, setAudioReady] = useState(false); 
 
+  // ===== REF (tidak trigger render) =====
+  const playedSoundRef = useRef(false); 
+  const prevLockedRef = useRef(false);  
+  const intervalRef = useRef(null);     
+  const audioRef = useRef(null);        
+
+  // ===== LIST KARYAWAN YANG DI PANTAU DARI API =====
   const targetNames = [
     "Agung Prasetyo",
     "Citra Aurelia Putri",
@@ -26,16 +30,17 @@ function DailyReviewCard() {
     "Muhamad Khoirul Irvan"
   ];
 
+  // ===== FORMAT TANGGAL =====
   const formatDate = (date) => {
     return new Date(date).toISOString().split('T')[0];
   };
 
   // 🔊 INIT AUDIO
   useEffect(() => {
-    audioRef.current = new Audio('/Sound/notification.wav');
+    audioRef.current = new Audio('/Sound/notification.wav'); 
   }, []);
 
-  // 🔓 UNLOCK AUDIO (1x klik)
+  // 🔓 UNLOCK AUDIO (harus klik user dulu)
   useEffect(() => {
     const unlockAudio = () => {
       if (!audioRef.current) return;
@@ -47,7 +52,7 @@ function DailyReviewCard() {
           audioRef.current.pause();
           audioRef.current.currentTime = 0;
           audioRef.current.volume = 1;
-          setAudioReady(true);
+          setAudioReady(true); 
           console.log("🔓 Audio unlocked");
         })
         .catch(() => {});
@@ -60,35 +65,31 @@ function DailyReviewCard() {
     };
   }, []);
 
-  // 🔥 CHECK LOCK TIME 
+  // 🔥 CEK LOCK JAM 11
   const checkLockTime = () => {
     const now = new Date();
     const hour = now.getHours();
     const minute = now.getMinutes();
 
+    // lock aktif setelah jam 11:00
     const locked = hour > 11 || (hour === 11 && minute >= 0);
     setIsLocked(locked);
   };
 
-  // 🔊 SOUND HANYA SAAT MOMEN LOCK
+  // 🔊 PLAY SOUND SAAT LOCK BERUBAH (false → true)
   useEffect(() => {
-    // hanya saat perubahan false → true
     if (!prevLockedRef.current && isLocked) {
       if (audioReady && audioRef.current) {
         audioRef.current.currentTime = 0;
         audioRef.current.play().catch(() => {});
         playedSoundRef.current = true;
-
-        console.log("🔊 Bunyi tepat waktu (11:00)");
-      } else {
-        console.log("⏭️ Tidak bunyi (belum klik)");
       }
     }
 
     prevLockedRef.current = isLocked;
   }, [isLocked, audioReady]);
 
-  // 🔄 FETCH DATA
+  // 🔄 FETCH DATA DARI API
   const fetchData = async () => {
     try {
       const endDate = new Date();
@@ -109,7 +110,7 @@ function DailyReviewCard() {
       const result = await response.json();
 
       if (result.status === 'success') {
-        setData(result.data);
+        setData(result.data); // simpan data API
       } else {
         throw new Error('Data tidak valid');
       }
@@ -121,22 +122,24 @@ function DailyReviewCard() {
     }
   };
 
-  // 🔄 PROCESS DATA
+  // 🔄 FILTER DATA HARI INI
   const processData = () => {
     if (!data.length) return;
 
     const todayStr = formatDate(new Date());
+
+    // ambil hanya data tanggal hari ini
     const todayEntries = data.filter(d => d.review_date === todayStr);
 
     setTodayData(todayEntries);
   };
 
-  // 🔄 INIT
+  // 🔄 INIT + AUTO REFRESH
   useEffect(() => {
     fetchData();
 
-    intervalRef.current = setInterval(fetchData, 10000);
-    const timeInterval = setInterval(checkLockTime, 1000);
+    intervalRef.current = setInterval(fetchData, 10000); // refresh tiap 10 detik
+    const timeInterval = setInterval(checkLockTime, 1000); // cek jam tiap detik
 
     checkLockTime();
 
@@ -146,12 +149,12 @@ function DailyReviewCard() {
     };
   }, []);
 
-  // 🔄 UPDATE DATA
+  // 🔄 UPDATE DATA SAAT BERUBAH
   useEffect(() => {
     processData();
   }, [data]);
 
-  // 🔄 RESET SOUND HARIAN
+  // 🔄 RESET SOUND SETIAP HARI
   useEffect(() => {
     const reset = () => {
       playedSoundRef.current = false;
@@ -164,22 +167,26 @@ function DailyReviewCard() {
 
     const timeout = setTimeout(() => {
       reset();
-      setInterval(reset, 86400000);
+      setInterval(reset, 86400000); 
     }, msToMidnight);
 
     return () => clearTimeout(timeout);
   }, []);
 
-  // 🔄 ORDER LIST
+  // 🔄 URUTAN LIST DINAMIS
   const getOrderedList = () => {
+
+    // yang sudah isi
     const submitted = targetNames.filter(name =>
       todayData.some(d => d.nama_karyawan === name)
     );
 
+    // yang belum isi
     const notSubmitted = targetNames.filter(name =>
       !todayData.some(d => d.nama_karyawan === name)
     );
 
+    // urutkan berdasarkan waktu terbaru
     const submittedWithTime = submitted.map(name => {
       const entry = todayData.find(d => d.nama_karyawan === name);
       return {
@@ -202,6 +209,7 @@ function DailyReviewCard() {
   if (loading) return <div className="card">Loading...</div>;
   if (error) return <div className="card">{error}</div>;
 
+  // ===== HITUNG STATUS =====
   const notFilledCount = targetNames.filter(
     n => !todayData.some(d => d.nama_karyawan === n)
   ).length;
@@ -210,17 +218,14 @@ function DailyReviewCard() {
 
   return (
     <div className="card daily-review-card">
+
+      {/* HEADER + ICON LOCK */}
       <div className="daily-review-header">
         <h2>📋 DAILY REVIEW</h2>
         {isLocked && <span className="lock-badge">🔒</span>}
       </div>
 
-      {!audioReady && (
-        <div className="audio-warning">
-          🔊 Klik di mana saja untuk mengaktifkan notifikasi
-        </div>
-      )}
-
+      {/* LIST KARYAWAN */}
       <div className="daily-review-list">
         {orderedNames.map(name => {
           const filled = todayData.some(d => d.nama_karyawan === name);
@@ -233,17 +238,17 @@ function DailyReviewCard() {
         })}
       </div>
 
+      {/* FOOTER STATUS (INTI LOGIC) */}
       <div className="daily-review-footer">
-        {isEmptyToday && (
+        {isEmptyToday ? (
           <span>📭 Belum ada yang mengisi hari ini</span>
+        ) : notFilledCount === 0 ? (
+          <span>✅ Semua sudah mengisi</span>
+        ) : (
+          <span>⚠️ {notFilledCount} karyawan belum mengisi</span>
         )}
-
-        <span>
-          {notFilledCount === 0
-            ? '✅ Semua Sudah Mengisi'
-            : `⚠️ ${notFilledCount} Karyawan Belum Mengisi`}
-        </span>
       </div>
+
     </div>
   );
 }
