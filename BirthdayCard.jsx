@@ -82,8 +82,10 @@ function BirthdayCard() {
                     <h2>🎂 BIRTHDAY</h2>
                 </div>
 
-                <div className="loading-container">
-                    <div className="loading-spinner"></div>
+                <div className="birthday-content">
+                    <div className="loading-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                        <div className="loading-spinner"></div>
+                    </div>
                 </div>
             </div>
         );
@@ -96,11 +98,13 @@ function BirthdayCard() {
                     <h2>🎂 BIRTHDAY</h2>
                 </div>
 
-                <div className="error-container">
-                    <p>{error}</p>
-                    <button onClick={() => fetchBirthdays(true)} className="retry-btn">
-                        Coba Lagi
-                    </button>
+                <div className="birthday-content">
+                    <div className="error-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '12px', height: '100%' }}>
+                        <p style={{ textAlign: 'center' }}>{error}</p>
+                        <button onClick={() => fetchBirthdays(true)} className="retry-btn">
+                            Coba Lagi
+                        </button>
+                    </div>
                 </div>
             </div>
         );
@@ -134,38 +138,38 @@ function BirthdayCard() {
                 </select>
             </div>
 
-            {/* CONTENT */}
-            {filtered.length === 0 ? (
-                <div className="no-birthday">
-                    {selectedMonth === 0
-                        ? "🎉 No Birthday Today 🎉"
-                        : "🎊 No birthdays this month 🎊"}
-                </div>
-            ) : (
-                <div className="birthday-items">
-                    {filtered.map((item, index) => {
-                        const dobDate = new Date(item.dob);
-                        const day = dobDate.getDate();
+            {/* CONTENT - wrapper birthday-content */}
+            <div className="birthday-content">
+                {filtered.length === 0 ? (
+                    <div className="no-birthday">
+                        {selectedMonth === 0
+                            ? "🎉 No Birthday Today 🎉"
+                            : "🎊 No birthdays this month 🎊"}
+                    </div>
+                ) : (
+                    <div className="birthday-items">
+                        {filtered.map((item, index) => {
+                            const dobDate = new Date(item.dob);
+                            const day = dobDate.getDate();
 
-                        return (
-                            <div key={index} className="birthday-item">
-                                <div className="birthday-name">
-                                    <span>{item.name}</span>
+                            return (
+                                <div key={index} className="birthday-item">
+                                    <div className="birthday-name">
+                                        <span>{item.name}</span>
+                                        <span className="birthday-date">
+                                            {day}
+                                        </span>
+                                    </div>
 
-                                    {/* 🔥 HANYA ANGKA TANGGAL */}
-                                    <span className="birthday-date">
-                                        {day}
-                                    </span>
+                                    <div className="birthday-dept">
+                                        {item.dept}
+                                    </div>
                                 </div>
-
-                                <div className="birthday-dept">
-                                    {item.dept}
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            )}
+                            );
+                        })}
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

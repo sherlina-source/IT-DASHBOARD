@@ -9,7 +9,7 @@ function TicketStatusCard() {
         const fetchTicketStatus = async () => {
             try {
                 const response = await fetch(
-                    "https://stagingservicewo.salokapark.app/api/get_wo_request?id_dept=DP011"
+                    "https://servicewo.salokapark.app/api/get_wo_request?id_dept=DP011"
                 );
                 const result = await response.json();
 

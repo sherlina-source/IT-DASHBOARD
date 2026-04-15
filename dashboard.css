@@ -30,7 +30,7 @@ body {
     margin: 0 auto;
 }
 
-/* ===== HEADER NAVY GELAP ===== */
+/* ===== HEADER ===== */
 .header {
     background: #1a2639;
     border-radius: 12px;
@@ -44,6 +44,7 @@ body {
     border: 2px solid #4a5568;
     flex-shrink: 0;
     width: 100%;
+    position: relative;
 }
 
 .header h1 {
@@ -53,9 +54,7 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 4px;
-    width: 100%;
     letter-spacing: 0.5px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .date-time {
@@ -66,12 +65,28 @@ body {
     border-radius: 30px;
     border: 1px solid #4a5568;
     display: inline-block;
-    margin: 0 auto;
     font-weight: 500;
 }
 
-/* ===== AKHIR HEADER NAVY ===== */
+.theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 0 8px;
+    border-radius: 30px;
+    transition: all 0.2s;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.theme-toggle:hover {
+    transform: scale(1.1);
+    background: rgba(0,0,0,0.1);
+}
 
+/* ===== DASHBOARD GRID ===== */
 .dashboard-grid {
     display: grid;
     grid-template-columns: 2fr 3fr 3fr;
@@ -80,7 +95,6 @@ body {
     min-height: 0;
 }
 
-/* Sections */
 .left-section,
 .middle-section,
 .right-section {
@@ -91,22 +105,7 @@ body {
     min-height: 0;
 }
 
-.left-section {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    height: 100%;
-}
-
-.birthday-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex: 1.6; /* 🔥 tambahin ruang */
-    min-height: 180px; /* 🔥 penting */
-}
-
-/* ===== CARD STYLES - BACKGROUND NAVY ===== */
+/* ===== CARD STYLES ===== */
 .card {
     background: #1a2639;
     border-radius: 12px;
@@ -119,14 +118,13 @@ body {
     height: 100%;
 }
 
-/* Text warna putih untuk semua konten di dalam card */
 .card * {
     color: white !important;
 }
 
 /* Calendar Card */
 .calendar-card {
-    flex: 1.3;
+    flex: 2;
     min-height: 0;
 }
 
@@ -137,23 +135,34 @@ body {
     flex-direction: column;
 }
 
-
 .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px; /* 🔥 kasih jarak ke bawah */
+    margin-bottom: 8px;
 }
 
+/* ===== BIRTHDAY FILTER - SUPPORT LIGHT/DARK MODE ===== */
 .birthday-filter {
-    background: #1e293b;
-    color: white;
-    border: none;
-    outline: none;
-    font-size: 0.65rem;
+    background: #2d3a5a;
+    color: #e0e0e0 !important;
+    border: 1px solid #4a5568;
     border-radius: 6px;
-    padding: 3px 6px;
+    padding: 4px 8px;
+    font-size: 0.65rem;
     cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.birthday-filter:hover {
+    background: #3b4b6b;
+    border-color: #6ab0fe;
+}
+
+.birthday-filter option {
+    background: #1a2639;
+    color: #e0e0e0;
 }
 
 /* Middle Section Cards */
@@ -161,14 +170,8 @@ body {
     flex: 1.3;
     min-height: 0;
 }
-
 .middle-section .card:nth-child(2) {
     flex: 1;
-    min-height: 0;
-}
-
-.middle-section .card:nth-child(3) {
-    flex: 0.7;
     min-height: 0;
 }
 
@@ -177,26 +180,25 @@ body {
     flex: 0.9;
     min-height: 0;
 }
-
 .right-section .card:nth-child(2) {
     flex: 1.1;
     min-height: 0;
 }
 
-.right-section .card:nth-child(3) {
-    flex: 0.7;
-    min-height: 0;
-}
+/* ===== HEADER CARD COLORS ===== */
 
-/* ===== WARNA HEADER CARD TETAP BERBEDA ===== */
 .calendar-card h2 {
     font-size: 0.85rem;
     font-weight: 600;
     color: #ff6b6b !important;
-    margin-bottom: 6px;
-    padding-bottom: 3px;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
     border-bottom: 3px solid #ff8787;
     flex-shrink: 0;
+    width: 100%;
+    display: block;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .middle-section .card:nth-child(1) h2 {
@@ -207,6 +209,10 @@ body {
     padding-bottom: 3px;
     border-bottom: 3px solid #ffb86b;
     flex-shrink: 0;
+    width: 100%;
+    display: block;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .middle-section .card:nth-child(2) h2 {
@@ -217,16 +223,10 @@ body {
     padding-bottom: 3px;
     border-bottom: 3px solid #ffe083;
     flex-shrink: 0;
-}
-
-.middle-section .card:nth-child(3) h2 {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #6bcf7f !important;
-    margin-bottom: 6px;
-    padding-bottom: 3px;
-    border-bottom: 3px solid #8ddb9d;
-    flex-shrink: 0;
+    width: 100%;
+    display: block;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .right-section .card:nth-child(1) h2 {
@@ -237,6 +237,10 @@ body {
     padding-bottom: 3px;
     border-bottom: 3px solid #8ac0fe;
     flex-shrink: 0;
+    width: 100%;
+    display: block;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .right-section .card:nth-child(2) h2 {
@@ -247,16 +251,10 @@ body {
     padding-bottom: 3px;
     border-bottom: 3px solid #c79cf0;
     flex-shrink: 0;
-}
-
-.right-section .card:nth-child(3) h2 {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #ff8a8a !important;
-    margin-bottom: 6px;
-    padding-bottom: 3px;
-    border-bottom: 3px solid #ffa8a8;
-    flex-shrink: 0;
+    width: 100%;
+    display: block;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .birthday-card h2 {
@@ -268,135 +266,278 @@ body {
     position: relative;
     width: 100%;
 }
-
-/* garis panjang */
 .birthday-card h2::after {
     content: "";
     position: absolute;
     left: 0;
     bottom: 0;
-    width: calc(100% - 0px); /* 🔥 lebih panjang */
+    width: 100%;
     height: 3px;
     background: #9ed4ff;
 }
 
-/* ===== AKHIR WARNA HEADER ===== */
-
-.card-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
+/* ===== CALENDAR CARD - FLAT LIST STYLE ===== */
+.calendar-card .card-content {
     overflow-y: auto;
+    max-height: 100%;
+    padding-right: 4px;
 }
 
-/* FITUR MEPET DI BAWAH */
-.push-to-bottom {
-    margin-top: auto;
-    padding-top: 8px;
+.calendar-week-view {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 0;
 }
 
-/* Calendar Card */
-.calendar-section {
-    margin-bottom: 5px;
+.calendar-day-group {
+    margin-bottom: 12px;
+    padding: 6px 8px;
+    background: rgba(45, 58, 90, 0.4);
+    border-radius: 6px;
+    border: 1px solid rgba(74, 85, 104, 0.4);
+    transition: background 0.2s;
+}
+.calendar-day-group:hover {
+    background: rgba(59, 75, 107, 0.4);
 }
 
-.calendar-section h3 {
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: #a0c0e0 !important;
-    margin-bottom: 2px;
-    text-transform: uppercase;
+.calendar-day-header {
+    padding: 4px 0;
+    margin-bottom: 4px;
+}
+.calendar-day-name {
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: #ffd966;
     letter-spacing: 0.3px;
 }
 
-.calendar-list {
-    list-style: none;
+.calendar-day-events {
+    display: flex;
+    flex-direction: column;
 }
 
-.calendar-list li {
-    padding: 2px 0;
-    border-bottom: 1px dashed #4a5568;
+.calendar-event-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0 5px 8px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(74, 85, 104, 0.3);
+}
+.calendar-event-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    padding-left: 12px;
+}
+
+.calendar-event-left {
     display: flex;
     align-items: center;
     gap: 6px;
+    flex: 1;
+}
+.calendar-event-bullet {
+    color: #6ab0fe;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+.calendar-event-title {
     font-size: 0.7rem;
-    line-height: 1.2;
-}
-
-.calendar-time {
-    color: #a0c0e0 !important;
     font-weight: 600;
-    min-width: 38px;
+    color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.calendar-event-time-right {
     font-size: 0.65rem;
+    font-family: monospace;
+    color: #9ca3af;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 2px 6px;
+    border-radius: 12px;
+    white-space: nowrap;
 }
 
-/* Birthday Card */
-/* ===== BIRTHDAY SCROLL IMPROVED ===== */
+/* Scrollbar umum - Dark Mode */
+.calendar-card .card-content::-webkit-scrollbar,
+.calendar-week-view::-webkit-scrollbar,
+.birthday-items::-webkit-scrollbar,
+.modal-content::-webkit-scrollbar {
+    width: 5px;
+}
+.calendar-card .card-content::-webkit-scrollbar-track,
+.calendar-week-view::-webkit-scrollbar-track,
+.birthday-items::-webkit-scrollbar-track,
+.modal-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+.calendar-card .card-content::-webkit-scrollbar-thumb,
+.calendar-week-view::-webkit-scrollbar-thumb,
+.birthday-items::-webkit-scrollbar-thumb,
+.modal-content::-webkit-scrollbar-thumb {
+    background: #4a5568;
+    border-radius: 10px;
+}
+.calendar-card .card-content::-webkit-scrollbar-thumb:hover,
+.calendar-week-view::-webkit-scrollbar-thumb:hover,
+.birthday-items::-webkit-scrollbar-thumb:hover,
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: #6c7a9a;
+}
+
+/* ===== MODAL STYLES ===== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.modal-content {
+    background: #1a2639;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border: 2px solid #4a5568;
+    animation: slideUp 0.3s ease;
+}
+@keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 2px solid #4a5568;
+    background: #2d3a5a;
+    border-radius: 14px 14px 0 0;
+}
+.modal-header h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffd966 !important;
+    margin: 0;
+}
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: #b0c4de !important;
+    padding: 0 8px;
+    transition: all 0.2s;
+}
+.modal-close:hover {
+    color: #ff6b6b !important;
+    transform: scale(1.1);
+}
+.modal-body {
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.modal-detail {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+.modal-icon {
+    font-size: 1.2rem;
+    min-width: 32px;
+}
+.modal-label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+.modal-value {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: white;
+    line-height: 1.4;
+}
+.modal-button {
+    margin: 8px 20px 20px 20px;
+    padding: 10px;
+    width: calc(100% - 40px);
+    border-radius: 10px;
+    border: none;
+    background: #6ab0fe;
+    color: white !important;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+.modal-button:hover {
+    background: #4a90d9;
+    transform: scale(0.98);
+}
+
+/* ===== BIRTHDAY CARD ===== */
+.birthday-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
 .birthday-items {
     display: flex;
     flex-direction: column;
     gap: 6px;
-
-    /* 🔥 KUNCI */
-    max-height: calc(42px * 3 + 12px); 
+    flex: 1;
+    min-height: 0;
     overflow-y: auto;
     overflow-x: hidden;
-    
 }
 
-
-/* Item jadi mini card */
 .birthday-item {
-    height: 42px; /* 🔥 atur tinggi fix */
-    min-height: 42px;
     padding: 6px 8px;
     border-radius: 6px;
     background: #2d3a5a;
     border: 1px solid #4a5568;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-
-/* Hover effect */
 .birthday-item:hover {
     background: #3b4b6b;
     transform: translateY(-1px);
 }
 
-/* Scrollbar khusus birthday */
-.birthday-items::-webkit-scrollbar {
-    width: 5px;
-}
-
-.birthday-items::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.birthday-items::-webkit-scrollbar-thumb {
-    background: #6c7a9a;
-    border-radius: 10px;
-}
-
-.birthday-items::-webkit-scrollbar-thumb:hover {
-    background: #9fb3d1;
-}
-
-/* ===== PERBAIKAN JARAK NAMA DAN TANGGAL BIRTHDAY CARD ===== */
 .birthday-name {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 8px; /* Jarak antara nama dan tanggal */
+    gap: 8px;
     font-size: 0.7rem;
     font-weight: 600;
     color: white;
     line-height: 1.2;
 }
-
-/* Nama di kiri dengan ellipsis jika terlalu panjang */
 .birthday-name span:first-child {
     flex: 1;
     white-space: nowrap;
@@ -404,7 +545,6 @@ body {
     text-overflow: ellipsis;
 }
 
-/* Tanggal di kanan dengan background */
 .birthday-date {
     font-size: 0.6rem;
     color: #b0c4de;
@@ -416,7 +556,6 @@ body {
     margin-left: 4px;
 }
 
-/* Departemen dengan border kiri */
 .birthday-dept {
     font-size: 0.6rem;
     color: #9ca3af;
@@ -424,31 +563,21 @@ body {
     padding-left: 4px;
     border-left: 2px solid #6ab0fe;
 }
-/* ===== AKHIR PERBAIKAN ===== */
 
-/* No birthday today */
 .no-birthday {
-    height: 42px; /* 🔥 sama kayak birthday-item */
-    
     display: flex;
     align-items: center;
     justify-content: center;
-
-    margin-top: auto;
-    margin-bottom: auto; /* 🔥 ini kuncinya */
-
+    width: 100%;
     font-style: italic;
     color: #b0c4de !important;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     background: #2d3a5a;
-    padding: 6px 8px;
-    border-radius: 6px;
-
+    border-radius: 8px;
     text-align: center;
+    padding: 12px;
+    margin: auto 0;
 }
-
-
-/* ===== AKHIR STYLE NoBirthdayCard ===== */
 
 /* ===== DAILY REVIEW CARD ===== */
 .daily-review-card {
@@ -457,47 +586,45 @@ body {
     display: flex;
     flex-direction: column;
 }
-
 .daily-review-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 6px;
+    gap: 8px; 
 }
-
+.daily-review-header h2 {
+    flex: 1;
+    margin: 0;
+    padding-right: 8px; 
+}
 .lock-badge {
     font-size: 0.8rem;
     cursor: help;
     opacity: 0.8;
-    transition: opacity 0.2s;
+    flex-shrink: 0; 
 }
-.lock-badge:hover {
-    opacity: 1;
-}
-
 .daily-review-list {
     flex: 1;
     overflow-y: auto;
     margin: 4px 0 8px 0;
-    max-height: 180px;
+    min-height: 0;
 }
 
-/* Scrollbar */
 .daily-review-list::-webkit-scrollbar {
-    width: 4px;
+    width: 5px;
 }
 .daily-review-list::-webkit-scrollbar-track {
     background: #2d3a5a;
-    border-radius: 4px;
+    border-radius: 10px;
 }
 .daily-review-list::-webkit-scrollbar-thumb {
-    background: #6c7a9a;
-    border-radius: 4px;
+    background: #4a5568;
+    border-radius: 10px;
 }
 .daily-review-list::-webkit-scrollbar-thumb:hover {
-    background: #9fb3d1;
+    background: #6c7a9a;
 }
-
 .review-item {
     display: flex;
     justify-content: space-between;
@@ -506,57 +633,98 @@ body {
     border-bottom: 1px solid #4a5568;
     font-size: 0.7rem;
 }
-
-.review-name {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    flex: 1;
-}
-
 .review-check {
     color: #48bb78;
     font-size: 0.8rem;
-    flex-shrink: 0;
-    margin-left: 8px;
 }
-
 .review-cross {
     color: #f56565;
     font-size: 0.8rem;
-    flex-shrink: 0;
-    margin-left: 8px;
 }
-
 .daily-review-footer {
     margin-top: auto;
     padding-top: 8px;
     border-top: 1px solid #4a5568;
     font-size: 0.6rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     color: #9ca3af;
 }
 
-.info-note {
-    font-style: italic;
+/* ===== WORK ORDERS CARD ===== */
+.work-section {
+    margin-bottom: 5px;
+}
+.work-section h3 {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #a0c0e0 !important;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+}
+.work-list {
+    list-style: none;
+}
+.work-list li {
+    padding: 2px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #4a5568;
+    font-size: 0.65rem;
+    line-height: 1.2;
+}
+.status-badge {
+    font-size: 0.8rem;
+    margin-left: 8px;
+}
+.status-red {
+    color: #ff4d4d !important;
+    text-shadow: 0 0 2px rgba(0,0,0,0.5);
+}
+.status-yellow {
+    color: #ffd966 !important;
+}
+.status-green {
+    color: #48bb78 !important;
 }
 
-.info-status {
-    font-weight: 500;
+/* ===== TICKET STATUS CARD ===== */
+.ticket-list {
+    list-style: none;
+}
+.ticket-list li {
+    padding: 3px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #4a5568;
+    font-size: 0.7rem;
+}
+.ticket-value {
+    font-weight: 600;
+    color: #a0c0e0 !important;
+    background: #2d3a5a;
+    padding: 2px 6px;
+    border-radius: 15px;
+    font-size: 0.65rem;
 }
 
-.info-status.success {
-    color: #48bb78;
+/* ===== INFRASTRUCTURE CARD ===== */
+.infrastructure-item {
+    padding: 2px 0;
+    border-bottom: 1px solid #4a5568;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.65rem;
+}
+.infrastructure-item.warning .value {
+    color: #f5d742 !important;
+    font-weight: 600;
 }
 
-.info-status.warning {
-    color: #ffd966;
-}
-
-
-/* ===== STYLE UNTUK StatusFooter (OPERATIONS ONLINE) ===== */
+/* ===== STATUS FOOTER ===== */
 .status-footer {
     background: #1a2639;
     border-radius: 6px;
@@ -567,11 +735,9 @@ body {
     justify-content: center;
     flex-shrink: 0;
     margin-top: auto;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
     height: 36px;
     min-height: 36px;
 }
-
 .status-footer .footer-item {
     display: flex;
     justify-content: space-between;
@@ -582,23 +748,19 @@ body {
     height: 100%;
     padding: 0 8px;
 }
-
 .status-footer .footer-label {
     color: #ffffff !important;
     font-weight: 500;
     font-size: 0.6rem;
     text-transform: uppercase;
-    letter-spacing: 0.3px;
     background: #1e2a3a;
     padding: 3px 12px;
     border-radius: 12px;
     border: 1px solid #4b6584;
-    line-height: 1;
     height: 24px;
     display: flex;
     align-items: center;
 }
-
 .status-footer .footer-status {
     color: #ffffff !important;
     font-weight: 500;
@@ -607,296 +769,211 @@ body {
     border-radius: 15px;
     font-size: 0.55rem;
     border: 1px solid #2ecc71;
-    line-height: 1;
     height: 24px;
     display: flex;
     align-items: center;
 }
-/* ===== AKHIR STYLE StatusFooter ===== */
 
-/* Work Orders Card */
-.work-section {
-    margin-bottom: 5px;
-}
-
-.work-section h3 {
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: #a0c0e0 !important;
-    margin-bottom: 2px;
-    text-transform: uppercase;
-}
-
-.work-list {
-    list-style: none;
-}
-
-.work-list li {
-    padding: 2px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #4a5568;
-    font-size: 0.65rem;
-    line-height: 1.2;
-}
-
-.open-dot {
-    color: #48bb78 !important;
-    font-size: 0.8rem;
-}
-
-.progress-check {
-    color: #48bb78 !important;
-    font-size: 0.8rem;
-}
-
-/* Daily Review Card */
-.daily-review-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 6px;
-}
-
-.daily-review-header h2 {
-    flex: 1;                
-    margin-bottom: 0;
-    padding-bottom: 3px;
-    border-bottom: 3px solid #ffe083;  
-    color: #ffd966 !important;         
-    font-size: 0.85rem;
-    font-weight: 600;
-}
-
-
-.daily-review-card {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-.daily-review-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 6px;
-}
-
-.lock-badge {
-    font-size: 0.8rem;
-    cursor: help;
-    opacity: 0.8;
-    transition: opacity 0.2s;
-}
-.lock-badge:hover {
-    opacity: 1;
-}
-
-.daily-review-list {
-    flex: 1;
-    overflow-y: auto;
-    margin: 4px 0 8px 0;
-    max-height: 180px;
-}
-
-/* Scrollbar */
-.daily-review-list::-webkit-scrollbar {
-    width: 4px;
-}
-.daily-review-list::-webkit-scrollbar-track {
-    background: #2d3a5a;
-    border-radius: 4px;
-}
-.daily-review-list::-webkit-scrollbar-thumb {
-    background: #6c7a9a;
-    border-radius: 4px;
-}
-.daily-review-list::-webkit-scrollbar-thumb:hover {
-    background: #9fb3d1;
-}
-
-.review-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6px 0;
-    border-bottom: 1px solid #4a5568;
-    font-size: 0.7rem;
-}
-
-.review-name {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    flex: 1;
-}
-
-.review-check {
-    color: #48bb78;
-    font-size: 0.8rem;
-    flex-shrink: 0;
-    margin-left: 8px;
-}
-
-.review-cross {
-    color: #f56565;
-    font-size: 0.8rem;
-    flex-shrink: 0;
-    margin-left: 8px;
-}
-
-.daily-review-footer {
-    margin-top: auto;
-    padding-top: 8px;
-    border-top: 1px solid #4a5568;
-    font-size: 0.6rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: #9ca3af;
-}
-
-.info-note {
-    font-style: italic;
-}
-
-.info-status {
-    font-weight: 500;
-}
-
-.info-status.success {
-    color: #48bb78;
-}
-
-.info-status.warning {
-    color: #ffd966;
-}
-
-/* Ticket Status Card */
-.ticket-list {
-    list-style: none;
-}
-
-.ticket-list li {
-    padding: 3px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #4a5568;
-    font-size: 0.7rem;
-    line-height: 1.2;
-}
-
-.ticket-value {
-    font-weight: 600;
-    color: #a0c0e0 !important;
-    background: #2d3a5a;
-    padding: 2px 6px;
-    border-radius: 15px;
-    font-size: 0.65rem;
-}
-
-/* Announcement Cards */
-.announcement-content h4 {
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: white !important;
-    margin-bottom: 1px;
-}
-
-.announcement-content p {
-    font-size: 0.6rem;
-    color: #b0c4de !important;
-}
-
-/* Infrastructure Card */
-.infrastructure-item {
-    padding: 2px 0;
-    border-bottom: 1px solid #4a5568;
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.65rem;
-    line-height: 1.2;
-}
-
-.infrastructure-item.warning .value {
-    color: #f5d742 !important;
-    font-weight: 600;
-}
-
-/* Scrollbar styling */
-.card-content::-webkit-scrollbar {
-    width: 3px;
-}
-
-.card-content::-webkit-scrollbar-track {
-    background: #2d3a5a;
-    border-radius: 3px;
-}
-
-.card-content::-webkit-scrollbar-thumb {
-    background: #6c7a9a;
-    border-radius: 3px;
-}
-
-/* Responsive */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 1280px) {
-    .header h1 {
-        font-size: 1.2rem;
-    }
-    
-    .date-time {
-        font-size: 0.75rem;
-    }
-    
-    .card h2 {
-        font-size: 0.8rem;
-    }
+    .header h1 { font-size: 1.2rem; }
+    .date-time { font-size: 0.75rem; }
+    .card h2 { font-size: 0.8rem; }
 }
-
 @media (max-width: 1024px) {
     .dashboard-grid {
         grid-template-columns: 1fr;
         overflow-y: auto;
     }
-    
-    .left-section,
-    .middle-section,
-    .right-section {
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-    
-    .card {
-        min-width: 250px;
-    }
-}
-
-@media (max-width: 768px) {
-    body {
-        overflow: auto;
-        height: auto;
-    }
-    
-    #app {
-        height: auto;
-        padding: 15px;
-    }
-    
-    .dashboard {
-        height: auto;
-    }
-    
-    .left-section,
-    .middle-section,
-    .right-section {
+    .left-section, .middle-section, .right-section {
         flex-direction: column;
     }
-      
-    .birthday-wrapper {
-        width: 100%;
-    }
+}
+@media (max-width: 768px) {
+    body { overflow: auto; height: auto; }
+    #app { height: auto; padding: 15px; }
+    .dashboard { height: auto; }
+    .birthday-items { max-height: 240px; }
+}
+
+/* ========== LIGHT MODE ========== */
+body.light-mode {
+    background: linear-gradient(135deg, #57855b 0%, #50a052 100%);
+}
+body.light-mode .header {
+    background: white;
+    border-color: #236b2f;
+}
+body.light-mode .header h1 {
+    background: linear-gradient(135deg, #1b5e20, #4caf50);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+body.light-mode .date-time {
+    background: #e8f5e9;
+    color: #1b5e20 !important;
+    border-color: #a5d6a7;
+}
+body.light-mode .card {
+    background: white;
+    border-color: #2e7d32;
+}
+body.light-mode .card * {
+    color: #1b5e20 !important;
+}
+body.light-mode .card h2 {
+    border-bottom-color: #4caf50 !important;
+    color: #2e7d32 !important;
+}
+
+body.light-mode .birthday-card h2::after {
+    background: #4caf50 !important;
+}
+/* Light mode calendar */
+body.light-mode .calendar-day-group {
+    background: rgba(200, 230, 200, 0.3);
+    border-color: rgba(100, 150, 100, 0.3);
+}
+body.light-mode .calendar-day-group:hover {
+    background: rgba(180, 210, 180, 0.4);
+}
+body.light-mode .calendar-day-name {
+    color: #2e7d32;
+}
+body.light-mode .calendar-event-item {
+    border-bottom-color: rgba(200, 230, 201, 0.5);
+}
+body.light-mode .calendar-event-item:hover {
+    background: rgba(0, 0, 0, 0.03);
+}
+body.light-mode .calendar-event-title {
+    color: #1e293b;
+}
+body.light-mode .calendar-event-time-right {
+    background: #e2e8f0;
+    color: #475569;
+}
+
+/* LIGHT MODE - Birthday Filter */
+body.light-mode .birthday-filter {
+    background: #e8f5e9;
+    color: #1b5e20 !important;
+    border-color: #81c784;
+}
+
+body.light-mode .birthday-filter:hover {
+    background: #c8e6c9;
+    border-color: #4caf50;
+}
+
+body.light-mode .birthday-filter option {
+    background: white;
+    color: #1b5e20;
+}
+
+/* Light mode birthday card */
+body.light-mode .birthday-item {
+    background: #f1f8e9;
+    border-color: #a5d6a7;
+}
+body.light-mode .birthday-item:hover {
+    background: #dcedc8;
+}
+body.light-mode .no-birthday {
+    background: #f1f8e9;
+    color: #1b5e20 !important;
+}
+body.light-mode .birthday-date {
+    background: #e8f5e9;
+    color: #1b5e20;
+    border: 1px solid #a5d6a7;
+}
+/* Light mode lainnya */
+body.light-mode .status-footer {
+    background: white;
+    border-color: #2e7d32;
+}
+body.light-mode .status-footer .footer-label {
+    background: #e8f5e9;
+    color: #1b5e20 !important;
+    border-color: #81c784;
+}
+body.light-mode .status-footer .footer-status {
+    background: #4caf50;
+    color: white !important;
+}
+body.light-mode .daily-review-footer {
+    border-top-color: #c8e6c9;
+}
+body.light-mode .lock-badge,
+body.light-mode .review-check {
+    color: #4caf50 !important;
+}
+body.light-mode .review-cross {
+    color: #f44336 !important;
+}
+body.light-mode .ticket-value {
+    background: #e8f5e9;
+    color: #2e7d32 !important;
+}
+body.light-mode .infrastructure-item.warning .value {
+    color: #f57c00 !important;
+}
+body.light-mode .theme-toggle {
+    color: #1b5e20;
+}
+/* Light mode modal */
+body.light-mode .modal-content {
+    background: white;
+    border-color: #2e7d32;
+}
+body.light-mode .modal-header {
+    background: #f1f8e9;
+    border-bottom-color: #c8e6c9;
+}
+body.light-mode .modal-header h3 {
+    color: #2e7d32 !important;
+}
+body.light-mode .modal-close {
+    color: #1b5e20 !important;
+}
+body.light-mode .modal-detail .modal-label {
+    color: #6b6b6b;
+}
+body.light-mode .modal-detail .modal-value {
+    color: #1b5e20;
+}
+body.light-mode .modal-button {
+    background: #4caf50;
+}
+body.light-mode .modal-button:hover {
+    background: #388e3c;
+}
+
+/* ===== LIGHT MODE SCROLLBAR ===== */
+
+body.light-mode .calendar-card .card-content::-webkit-scrollbar-thumb,
+body.light-mode .calendar-week-view::-webkit-scrollbar-thumb,
+body.light-mode .birthday-items::-webkit-scrollbar-thumb,
+body.light-mode .modal-content::-webkit-scrollbar-thumb,
+body.light-mode .daily-review-list::-webkit-scrollbar-thumb {
+    background: #66bb6a;
+}
+body.light-mode .calendar-card .card-content::-webkit-scrollbar-thumb:hover,
+body.light-mode .calendar-week-view::-webkit-scrollbar-thumb:hover,
+body.light-mode .birthday-items::-webkit-scrollbar-thumb:hover,
+body.light-mode .modal-content::-webkit-scrollbar-thumb:hover,
+body.light-mode .daily-review-list::-webkit-scrollbar-thumb:hover {
+    background: #4caf50;
+}
+
+/* Track scrollbar di light mode */
+body.light-mode .daily-review-list::-webkit-scrollbar-track {
+    background: #e8f5e9;
+}
+body.light-mode .calendar-card .card-content::-webkit-scrollbar-track,
+body.light-mode .calendar-week-view::-webkit-scrollbar-track,
+body.light-mode .birthday-items::-webkit-scrollbar-track,
+body.light-mode .modal-content::-webkit-scrollbar-track {
+    background: rgba(200, 230, 200, 0.3);
 }

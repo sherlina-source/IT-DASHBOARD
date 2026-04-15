@@ -15,7 +15,7 @@ function InfrastructureCard() {
                 <span>INTERNET ISP 1:</span> <span>ONLINE</span>
             </div>
             <div className="infrastructure-item warning">
-                <span>BACKUP SYSTEM:</span> <span className="value">🔒 WARNING</span>
+                <span>BACKUP SYSTEM:</span> <span className="value">⚠️ WARNING</span>
             </div>
         </div>
     );

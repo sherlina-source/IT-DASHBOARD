@@ -1,3 +1,4 @@
+// src/pages/Dashboard.jsx
 import React from 'react';
 import Header from '../components/Header';
 import CalendarCard from '../components/CalendarCard';
@@ -5,13 +6,11 @@ import BirthdayCard from '../components/BirthdayCard';
 import WorkOrdersCard from '../components/WorkOrdersCard';
 import DailyReviewCard from '../components/DailyReviewCard';
 import TicketStatusCard from '../components/TicketStatusCard';
-import AnnouncementCard from '../components/AnnouncementCard';
 import InfrastructureCard from '../components/InfrastructureCard';
 import StatusFooter from '../components/StatusFooter';
 import '../styles/dashboard.css';
 
 function Dashboard() {
-
     return (
         <div className="dashboard">
             <Header />
@@ -23,11 +22,7 @@ function Dashboard() {
                     <CalendarCard />
 
                     <div className="birthday-wrapper">
-                        
-                        {/* 🔥 BIRTHDAY (SUDAH ADA FILTER DI DALAM) */}
-                        <BirthdayCard />
-
-                        {/* 🔥 FOOTER */}
+                        {/* 🔥 sekarang cuma footer */}
                         <StatusFooter />
                     </div>
                 </div>
@@ -42,7 +37,9 @@ function Dashboard() {
                 <div className="right-section">
                     <TicketStatusCard />
                     <InfrastructureCard />
-                    <AnnouncementCard />
+
+                    {/* 🔥 Birthday pindah ke sini */}
+                    <BirthdayCard />
                 </div>
 
             </div>

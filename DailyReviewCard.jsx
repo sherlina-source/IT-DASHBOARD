@@ -19,16 +19,16 @@ function DailyReviewCard() {
 
   // ===== LIST KARYAWAN YANG DI PANTAU DARI API =====
   const targetNames = [
-    "Agung Prasetyo",
-    "Citra Aurelia Putri",
-    "Farizki Adi Pratama",
-    "Andre Wijaksono",
-    "Antika Lorien",
-    "Reza Zhainal Abhidin",
-    "Rico Widiyatma",
-    "Banu Susanto",
-    "Muhamad Khoirul Irvan"
-  ];
+  "Agung Prasetyo",
+  "Andre Wijaksono",
+  "Antika Lorien",
+  "Banu Susanto",
+  "Citra Aurelia Putri",
+  "Farizki Adi Pratama",
+  "Muhamad Khoirul Irvan",
+  "Reza Zhainal Abhidin",
+  "Rico Widiyatma"
+];
 
   // ===== FORMAT TANGGAL =====
   const formatDate = (date) => {
@@ -40,7 +40,7 @@ function DailyReviewCard() {
     audioRef.current = new Audio('/Sound/notification.wav'); 
   }, []);
 
-  // 🔓 UNLOCK AUDIO (harus klik user dulu)
+  // 🔓 UNLOCK AUDIO 
   useEffect(() => {
     const unlockAudio = () => {
       if (!audioRef.current) return;
@@ -65,7 +65,7 @@ function DailyReviewCard() {
     };
   }, []);
 
-  // 🔥 CEK LOCK JAM 11
+  //  CEK LOCK JAM 11
   const checkLockTime = () => {
     const now = new Date();
     const hour = now.getHours();
@@ -174,35 +174,31 @@ function DailyReviewCard() {
   }, []);
 
   // 🔄 URUTAN LIST DINAMIS
-  const getOrderedList = () => {
+ const getOrderedList = () => {
 
-    // yang sudah isi
-    const submitted = targetNames.filter(name =>
-      todayData.some(d => d.nama_karyawan === name)
-    );
+  const submitted = targetNames.filter(name =>
+    todayData.some(d => d.nama_karyawan === name)
+  );
 
-    // yang belum isi
-    const notSubmitted = targetNames.filter(name =>
-      !todayData.some(d => d.nama_karyawan === name)
-    );
+  
+  const notSubmitted = targetNames.filter(name =>
+    !todayData.some(d => d.nama_karyawan === name)
+  );
 
-    // urutkan berdasarkan waktu terbaru
-    const submittedWithTime = submitted.map(name => {
-      const entry = todayData.find(d => d.nama_karyawan === name);
-      return {
-        name,
-        updatedAt: entry ? new Date(entry.updated_at).getTime() : 0
-      };
-    });
+  
+  const sortedSubmitted = [...submitted].sort((a, b) =>
+    a.localeCompare(b)
+  );
 
-    submittedWithTime.sort((a, b) => b.updatedAt - a.updatedAt);
+  const sortedNotSubmitted = [...notSubmitted].sort((a, b) =>
+    a.localeCompare(b)
+  );
 
-    const orderedSubmitted = submittedWithTime.map(i => i.name);
 
-    return isLocked
-      ? [...notSubmitted, ...orderedSubmitted]
-      : [...orderedSubmitted, ...notSubmitted];
-  };
+  return isLocked
+    ? [...sortedNotSubmitted, ...sortedSubmitted]
+    : [...sortedSubmitted, ...sortedNotSubmitted];
+};
 
   const orderedNames = getOrderedList();
 
